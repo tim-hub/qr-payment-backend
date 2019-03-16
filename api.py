@@ -18,7 +18,8 @@ def issue_a_card():
         db.session.commit()
         return {
             'data': {
-                "uuid": str(card.uuid)
+                "uuid": str(card.uuid),
+                'balance': card.balance
             },
             'message': 'got a uuid for your card.'
         }
