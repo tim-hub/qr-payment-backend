@@ -16,7 +16,6 @@ def issue_a_card():
         card = Card(uuid=get_uuid())
         db.session.add(card)
         db.session.commit()
-
         return {
             'data': {
                 "uuid": str(card.uuid)
@@ -24,18 +23,24 @@ def issue_a_card():
             'message': 'got a uuid for your card.'
         }
     except Exception as e:
-        print(e)
         raise e
 
 
 @app.route('/issue_qr')
 def issue_a_device():
-    return {
-        'data':{
-            "uuid": str(get_uuid())
-        },
-        'message': 'got a uuid for your qr_code/nfc tag.'
-    }
+    try:
+        machine = Machine(uuid=get_uuid())
+        db.session.add(machine)
+        db.session.commit()
+        return {
+            'data': {
+                "uuid": str(machine.uuid)
+            },
+            'message': 'got a uuid for the machine.'
+        }
+    except Exception as e:
+        raise e
+
 
 @app.route('/scan_tag//<string:machine_id>/')
 def scan_tag(machine_id):
