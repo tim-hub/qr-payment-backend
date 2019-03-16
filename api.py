@@ -61,7 +61,6 @@ def scan_tag(machine_id):
 
         if not tag_on:
             # decrease the balance
-
             scan = Scan(
                 card_id=card.id,
                 machine_id=machine.id,
@@ -82,8 +81,11 @@ def scan_tag(machine_id):
             scan = Scan(
                 card_id=card.id,
                 machine_id=machine.id,
-                tag_on=False
+                tag_on=False,
+                amount= 2,
             )
+            card.balance -= 2
+            db.session.add(card)
             db.session.add(scan)
             db.session.commit()
             return {
