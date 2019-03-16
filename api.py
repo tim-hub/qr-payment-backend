@@ -19,7 +19,7 @@ def issue_a_card():
         return {
             'data': {
                 "uuid": str(card.uuid),
-                'balance': card.balancehero
+                'balance': card.balance
             },
             'message': 'got a uuid for your card.'
         }
