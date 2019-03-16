@@ -14,7 +14,9 @@ class Config(object):
 
 class ProductionConfig(Config):
     DEBUG = False
-
+    # the product env
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    SECRET_KEY = SQLALCHEMY_DATABASE_URI + os.getenv("secret")
 
 class StagingConfig(Config):
     DEVELOPMENT = True
