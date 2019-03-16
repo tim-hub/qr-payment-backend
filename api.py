@@ -44,7 +44,7 @@ def issue_a_device():
 
 @app.route('/scan_tag//<string:machine_id>/')
 def scan_tag(machine_id):
-    card_id = str(request.data.get('card_id', ''))
+    card_id = str(request.data.get('card_id', None))
     # get this tag on from db
     tag_on = False
     balance = 0
@@ -70,4 +70,14 @@ def scan_tag(machine_id):
 @app.route('/admin')
 def admin():
     # query results
-    return {}
+    cards = Card.query.all()
+    machines = Machine.query.all()
+    scans = Scan.query.all()
+    return {
+        'message': 'all data for admin only',
+        'data': {
+            'cards': cards,
+            'machines': machines,
+            'scans': scans
+        }
+    }
