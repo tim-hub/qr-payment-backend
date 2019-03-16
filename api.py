@@ -77,8 +77,8 @@ def admin():
     return {
         'message': 'all data for admin only',
         'data': {
-            'cards': CardSchema(many=True).dump(cards),
-            'machines': MachineSchema(many=True).dump(machines),
-            'scans': ScanSchema(many=True).dump(scans)
+            'cards': CardSchema(many=True).dump(cards)[0],
+            'machines': MachineSchema(many=True).dump(machines)[0],
+            'scans': ScanSchema(many=True).dump(scans)[0]
         }
     }
