@@ -1,7 +1,7 @@
 import uuid
-from flask import request, url_for
+from flask import request
 from app import app, db
-from models import Card, Machine, Scan
+from models import Card, Machine, Scan, CardSchema, MachineSchema, ScanSchema
 
 def get_uuid():
     return uuid.uuid4()
@@ -19,7 +19,7 @@ def issue_a_card():
         return {
             'data': {
                 "uuid": str(card.uuid),
-                'balance': card.balance
+                'balance': card.balancehero
             },
             'message': 'got a uuid for your card.'
         }
@@ -77,8 +77,8 @@ def admin():
     return {
         'message': 'all data for admin only',
         'data': {
-            'cards': cards,
-            'machines': machines,
-            'scans': scans
+            'cards': CardSchema(many=True).dump(cards),
+            'machines': MachineSchema(many=True).dump(machines),
+            'scans': ScanSchema(many=True).dump(scans)
         }
     }

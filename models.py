@@ -1,5 +1,6 @@
-from app import db
+from app import db, ma
 from datetime import datetime
+
 
 class Machine(db.Model):
     __tablename__ = 'machines'
@@ -12,6 +13,12 @@ class Machine(db.Model):
     def __repr__(self):
         return '<Machine %r>' % self.uuid
 
+
+class MachineSchema(ma.Schema):
+    class Meta:
+        fields = ('uuid', 'created')
+
+
 class Card(db.Model):
     __tablename__ = 'cards'
 
@@ -23,6 +30,11 @@ class Card(db.Model):
 
     def __repr__(self):
         return '<Card %r>' % self.uuid
+
+
+class CardSchema(ma.Schema):
+    class Meta:
+        fields = ('uuid', 'created', 'balance')
 
 
 class Scan(db.Model):
@@ -42,3 +54,8 @@ class Scan(db.Model):
     created = db.Column(db.DateTime, nullable=False,
                         default=datetime.utcnow)
     tag_on =db.Column(db.Boolean, default=True)
+
+
+class ScanSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'machine_id', 'card_id', 'amount', 'created', 'tag_on')
