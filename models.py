@@ -19,6 +19,7 @@ class Card(db.Model):
     uuid = db.Column(db.String(), unique=True, nullable=False)
     created = db.Column(db.DateTime, nullable=False,
                         default=datetime.utcnow)
+    balance = db.Column(db.Integer, default=10)
 
     def __repr__(self):
         return '<Card %r>' % self.uuid
@@ -36,3 +37,8 @@ class Scan(db.Model):
                            nullable=False)
     card = db.relationship('Card',
                                backref=db.backref('scans', lazy=True))
+
+    amount = db.Column(db.Integer, default=0)
+    created = db.Column(db.DateTime, nullable=False,
+                        default=datetime.utcnow)
+    tag_on =db.Column(db.Boolean, default=True)
